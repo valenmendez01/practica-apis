@@ -2,29 +2,34 @@ package com.uade.tpo.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import com.uade.tpo.entity.Category;
 
 public class CategoryRepository {
+    private ArrayList<Category> categories;
     
-    public ArrayList<Category> categories = new ArrayList<Category>(
-        Arrays.asList(Category.builder().description("relojes").id(1).build(),
-            Category.builder().description("collares").id(2).build(),
-            Category.builder().description("pulceras").id(3).build()
-    )
-    );
+    public CategoryRepository() {
+        categories = new ArrayList<Category>(
+                Arrays.asList(Category.builder().description("Electronica").id(1).build(),
+                        Category.builder().description("Cocina").id(2).build(),
+                        Category.builder().description("Gaming").id(3).build()));
+    }
 
     public ArrayList<Category> getCategories() {
         return this.categories;
     }
 
-    public String getCategoryById(int categoryId) {
-        return null;
+    public Optional<Category> getCategoryById(int categoryId) {
+        return this.categories.stream().filter(m -> m.getId() == categoryId).findAny();
     }
-    
-    public String createCategory(String entity) {
-        
-        return null;
+
+    public Category createCategory(int newCategoryId, String description) {
+        Category newCategory = Category.builder()
+                .description(description)
+                .id(newCategoryId).build();
+        this.categories.add(newCategory);
+        return newCategory;
     }
 
 }
