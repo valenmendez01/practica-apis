@@ -1,35 +1,13 @@
 package com.uade.tpo.repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import com.uade.tpo.entity.Category;
 
-public class CategoryRepository {
-    private ArrayList<Category> categories;
-    
-    public CategoryRepository() {
-        categories = new ArrayList<Category>(
-                Arrays.asList(Category.builder().description("Electronica").id(1).build(),
-                        Category.builder().description("Cocina").id(2).build(),
-                        Category.builder().description("Gaming").id(3).build()));
-    }
+@Repository
 
-    public ArrayList<Category> getCategories() {
-        return this.categories;
-    }
-
-    public Optional<Category> getCategoryById(int categoryId) {
-        return this.categories.stream().filter(m -> m.getId() == categoryId).findAny();
-    }
-
-    public Category createCategory(int newCategoryId, String description) {
-        Category newCategory = Category.builder()
-                .description(description)
-                .id(newCategoryId).build();
-        this.categories.add(newCategory);
-        return newCategory;
-    }
-
+// Al heredar de JpaRepository, tu interfaz recibe automáticamente una implementación de los métodos estándar para manejar la entidad Category
+// JpaRepository<Category, Integer> --> entidad + tipo de dato de ID
+public interface CategoryRepository extends JpaRepository<Category, Long> {
+    // Aquí no hace falta escribir nada más por ahora
 }
