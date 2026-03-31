@@ -1,9 +1,0 @@
-target/
-.mvn/
-mvnw
-mvnw.cmd
-.gitignore
-.git/
-.idea/
-.vscode/
-HELP.md
